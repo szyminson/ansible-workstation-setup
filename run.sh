@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ansible-playbook -i "$(hostname).local," -k win-playbook.yml
+ansible-playbook -i "$(hostname).local," win-playbook.yml
