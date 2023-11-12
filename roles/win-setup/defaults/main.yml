@@ -1,0 +1,8 @@
+---
+# defaults file for win-setup
+choco_packages:
+  - vscode
+  - 7zip
+  - firefox
+  - docker-desktop
+  - signal

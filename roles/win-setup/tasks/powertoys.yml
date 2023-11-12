@@ -1,0 +1,10 @@
+---
+- name: Install PowerToys
+  win_chocolatey:
+    name: powertoys
+    state: present
+
+- name: PowerToys config
+  ansible.windows.win_copy:
+    src: settings_133251735513170872.ptb
+    dest: '%homepath%\Documents\PowerToys\Backup\'
