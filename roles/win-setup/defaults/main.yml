@@ -6,3 +6,5 @@ choco_packages:
   - firefox
   - docker-desktop
   - signal
+  - protondrive
+  - protonmail
