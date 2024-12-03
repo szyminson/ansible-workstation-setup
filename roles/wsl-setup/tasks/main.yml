@@ -1,2 +1,5 @@
 ---
 # tasks file for wsl-setup
+- name: install sshpass
+  ansible.builtin.package:
+    name: sshpass
