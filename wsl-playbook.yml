@@ -1,0 +1,5 @@
+---
+- name: Setup windows host
+  hosts: all
+  roles:
+    - wsl-setup
