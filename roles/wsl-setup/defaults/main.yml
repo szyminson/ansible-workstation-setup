@@ -1,2 +1,4 @@
 ---
 # defaults file for wsl-setup
+wsl_user: "{{ ansible_user | default(False) }}"
+dotfiles_repo: git@github.com:szyminson/dotfiles.git

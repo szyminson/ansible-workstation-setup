@@ -1,0 +1,40 @@
+---
+- name: Install zsh
+  become: True
+  package: 
+    name: zsh
+
+- name: Check if starship prompt installed
+  ansible.builtin.command: which starship
+  register: starship_installed
+  ignore_errors: True
+  changed_when: False
+
+- name: Install starship prompt
+  become: True
+  ansible.builtin.shell: curl -sS https://starship.rs/install.sh | sh -s -- --yes
+  when: starship_installed is failed
+
+- block:
+  - name: Set zsh as shell
+    user: 
+      name: "{{ wsl_user }}"
+      shell: /bin/zsh
+  - name: Clone dotfiles repo
+    git:
+      accept_hostkey: True
+      repo: "{{ dotfiles_repo }}"
+      bare: True
+      dest: "/home/{{ wsl_user }}/.cfg"
+    register: dotfiles_clone
+
+  - name: Checkout dotfiles repo
+    ansible.builtin.shell:
+      cmd: /usr/bin/git --git-dir=/home/{{ wsl_user }}/.cfg --work-tree=/home/{{ wsl_user }} checkout
+    when: dotfiles_clone.changed
+  
+  - name: Hide untracked files
+    ansible.builtin.shell:
+      cmd: /usr/bin/git --git-dir=/home/{{ wsl_user }}/.cfg --work-tree=/home/{{ wsl_user }} config status.showUntrackedFiles no
+    when: dotfiles_clone.changed
+  when: wsl_user

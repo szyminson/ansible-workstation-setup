@@ -1,3 +1,3 @@
 #!/bin/bash
-ansible-playbook -i "localhost" wsl-playbook.yml
+ansible-playbook -e "wsl_user=$(whoami)" wsl-playbook.yml
 ansible-playbook -i "$(hostname).local," win-playbook.yml

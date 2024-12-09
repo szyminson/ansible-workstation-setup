@@ -1,5 +1,17 @@
 ---
 # tasks file for wsl-setup
-- name: install sshpass
+- name: install packages necessary for setup
+  become: true
   ansible.builtin.package:
-    name: sshpass
+    name: 
+      - sshpass
+      - libnss-mdns
+      - snapd
+- block:
+  - include_tasks: shell.yml
+  tags: shell
+- name: Install aws-cli
+  become: True
+  community.general.snap:
+    name: aws-cli
+    classic: True
